@@ -1,42 +1,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<h:outputStylesheet library="css" name="styles.css" />
+	<meta name="viewport" content="width=device-width, user-escalable=no"></meta>
 </h:head>
 <h:body>
 	<h:form>
-		<h2>Seja bem-vindo(a) a loja de áudio</h2>
+		<p:outputLabel value="Seja bem-vindo(a): #{sessionController.usuarioDTO.usuario} a loja de áudio"/>
+		<p:commandButton value="Sair" action="#{sessionClosedController.closedSession}"/>
+		<p:dataTable id="tblApresentacao" var="empregado" widgetVar="dtEmpregados"
+			value="#{empregadoController.empregados}" reflow="true" rows="15"
+			paginator="true" paginatorPosition="bottom" rowsPerPageTemplate="5,10,15,20"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                     emptyMessage="Não foi possível localizar!" filteredValue="#{empregadoController.empregadosFiltrados}">
 
-		<h:dataTable id="tblApresentacao" var="empregado" rowClasses="rowTable rowTableLine"
-			value="#{empregadoController.empregados}" headerClass="headerTable">
-			<h:column>
-				<f:facet name="header">Nome</f:facet>
-				<h:outputText value="#{empregado.nome}"></h:outputText>
-			</h:column>
+			<f:facet name="{Exporters}">
+				<div style="float: right;padding-top: 5px;">
+					<h:commandLink>
+						<p:graphicImage name="imgs/excel.png" width="24"/>
+						<p:dataExporter type="xls" target="tblApresentacao" fileName="Empregados"/>
+					</h:commandLink>
+					
+					<h:commandLink>
+						<p:graphicImage name="imgs/pdf.png" width="24"/>
+						<p:dataExporter type="pdf" target="tblApresentacao" fileName="Empregados"/>
+					</h:commandLink>
+				</div>
+			</f:facet>
+			
+			<p:column headerText="Nome" filterBy="#{empregado.nome}" filterMatchMode="contains" sortBy="#{empregado.nome}">
+				<p:outputLabel value="#{empregado.nome}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Sobrenome</f:facet>
-				<h:outputText value="#{empregado.sobrenome}"></h:outputText>
-			</h:column>
+			<p:column headerText="Sobrenome" filterBy="#{empregado.sobrenome}" filterMatchMode="contains" sortBy="#{empregado.sobrenome}">
+				<p:outputLabel value="#{empregado.sobrenome}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Apelido</f:facet>
-				<h:outputText value="#{empregado.apelido}"></h:outputText>
-			</h:column>
+			<p:column headerText="Apelido" filterBy="#{empregado.apelido}" filterMatchMode="contains" sortBy="#{empregado.apelido}">
+				<p:outputLabel value="#{empregado.apelido}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Função</f:facet>
-				<h:outputText value="#{empregado.cargo}"></h:outputText>
-			</h:column>
+			<p:column headerText="Função" filterBy="#{empregado.cargo}" filterMatchMode="contains" sortBy="#{empregado.cargo}">
+				<h:outputLabel value="#{empregado.cargo}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Status</f:facet>
-				<h:outputText value="HABILITADO" rendered="#{empregado.status}"></h:outputText>
-				<h:outputText value="LESIONADO" rendered="#{!empregado.status}"></h:outputText>
-			</h:column>
-		</h:dataTable>
+			<p:column headerText="Status">
+				<h:outputLabel value="HABILITADO" rendered="#{empregado.status}" />
+				<h:outputLabel value="LESIONADO" rendered="#{!empregado.status}" />
+			</p:column>
+		</p:dataTable>
 	</h:form>
 </h:body>
 </html>

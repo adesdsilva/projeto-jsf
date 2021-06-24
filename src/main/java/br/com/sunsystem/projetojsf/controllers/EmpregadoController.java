@@ -15,6 +15,8 @@ public class EmpregadoController {
 
 	private List<Empregado> empregados;
 	
+	private List<Empregado> empregadosFiltrados;
+	
 	private EmpregadoService empregadoService = new EmpregadoService();
 	
 	@PostConstruct
@@ -25,13 +27,21 @@ public class EmpregadoController {
 	public void consultarEmpregados() {
 		this.empregados = this.empregadoService.listarEmpregados();
 	}
-
+	
 	public List<Empregado> getEmpregados() {
 		return empregados;
 	}
 
 	public void setEmpregados(List<Empregado> empregados) {
 		this.empregados = empregados;
+	}
+
+	public List<Empregado> getEmpregadosFiltrados() {
+		return empregadosFiltrados;
+	}
+
+	public void setEmpregadosFiltrados(List<Empregado> empregadosFiltrados) {
+		this.empregadosFiltrados = empregadosFiltrados;
 	}
 	
 	

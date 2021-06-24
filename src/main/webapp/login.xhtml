@@ -1,26 +1,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"      
-      xmlns:h="http://java.sun.com/jsf/html">
-      
-      <h:head>
-      	<h:outputStylesheet library="css" name="styles.css"/>
-      </h:head>
-      
-      <h:body>
-      	<h:form id="formLogin">
-      		<h:panelGrid columns="2">
-      			<h:outputLabel value="Usuário: *" styleClass="colorText"/>
-      			<h:inputText id="txtUsuario" value="#{loginControl.usuario}" required="true" 
-      			requiredMessage="Campo Usuário é obrigatório!"/>
-      			
-      			<h:outputLabel value="Password: *" styleClass="colorText"/>
-      			<h:inputSecret id="txtPassword" value="#{loginControl.password}" required="true"
-      			requiredMessage="Campo Password é obrigatório!"/>
-      			
-      			<h:commandButton value="Login" action="#{loginControl.logar}">
-      			</h:commandButton>
-      		</h:panelGrid>
-      	</h:form>
-      </h:body>
-      
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<!--  <h:outputStylesheet library="css" name="styles.css" />-->
+	<meta name="viewport" content="width=device-width, user-escalable=no"></meta>
+</h:head>
+
+<h:body>
+	<div class="ui-fluid">
+		<h:form id="formLogin">
+			<p:growl id="growl"/>
+			<p:panel id="pnlLogin" header="Início de Sessão" style="text-align: center">
+				<p:graphicImage name="imgs/user.png" width="10%"/>
+				<p:panelGrid columns="1" id="pnlGridLogin"
+					columnClasses="ui-g-12 ui-md-12, ui-g-12 ui-md-12" layout="grid"
+					styleClass="ui-panelGrid-blank ui-fluid">
+					<p:outputLabel value="Usuário:" styleClass="colorText"
+						for="txtUsuario" style="float: left" />
+					<p:inputText id="txtUsuario" value="#{loginControl.usuario}"
+						required="true" requiredMessage="Campo Usuário é obrigatório!" />
+
+					<p:outputLabel value="Password:" styleClass="colorText"
+						for="txtPassword" style="float: left" />
+					<p:password id="txtPassword" value="#{loginControl.password}"
+						required="true" requiredMessage="Campo Password é obrigatório!" />
+
+					<p:outputLabel></p:outputLabel>
+
+					<p:commandButton value="Login" action="#{loginControl.logar}"
+						icon="ui-icon-check" update="formLogin">
+					</p:commandButton>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</div>
+</h:body>
+
 </html>
