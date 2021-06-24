@@ -1,14 +1,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"      
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
-	<h:body>
-		<h:form>
-			<h2>Seja bem-vindo(a) a loja de áudio</h2>
-		</h:form>
-	</h:body>
+	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
+<h:body>
+	<h:form>
+		<h2>Seja bem-vindo(a) a loja de áudio</h2>
 
+		<h:dataTable id="tblApresentacao" var="empregado" rowClasses="rowTable rowTableLine"
+			value="#{empregadoController.empregados}" headerClass="headerTable">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{empregado.nome}"></h:outputText>
+			</h:column>
 
+			<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
+				<h:outputText value="#{empregado.sobrenome}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Apelido</f:facet>
+				<h:outputText value="#{empregado.apelido}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Função</f:facet>
+				<h:outputText value="#{empregado.cargo}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Status</f:facet>
+				<h:outputText value="HABILITADO" rendered="#{empregado.status}"></h:outputText>
+				<h:outputText value="LESIONADO" rendered="#{!empregado.status}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
 </html>
